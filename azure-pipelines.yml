@@ -8,3 +8,6 @@ trigger:
     include:
     - master
     - main
+
+stages:
+ - 
