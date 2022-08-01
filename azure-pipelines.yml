@@ -10,4 +10,6 @@ trigger:
     - main
 
 stages:
- - 
+ - stage: A
+  
+ 
