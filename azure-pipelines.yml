@@ -10,6 +10,5 @@ trigger:
     - main
 
 stages:
- - stage: A
-  
- 
+ - stage: 
+   displayName: "service"
