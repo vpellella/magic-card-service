@@ -12,3 +12,8 @@ trigger:
 stages:
  - stage: 
    displayName: "service"
+   jobs:
+     - job: 
+       steps:
+         - bash: echo start
+           
