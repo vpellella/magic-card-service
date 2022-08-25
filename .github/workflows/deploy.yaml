@@ -1,4 +1,13 @@
-name: Deploy magic-card-service
+apiVersion: v1
+kind: Pod
+metadata:
+ name: service-pod
+ labels:
+  component: web
+spec:
+ containers:
+  - name: magic-card-service
+    image: stephengrider/magic-card-servicename: Deploy MultiDocker
 on:
   push:
     branches:
@@ -10,8 +19,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker build -t vineelpellella/magic-card-service -f ./Dockerfile .
-
+      - run: docker build -t cygnetops/react-test -f ./client/Dockerfile.dev ./client
+      - run: docker run -e CI=true cygnetops/react-test npm test
+ 
+      - run: docker build -t cygnetops/multi-client-10-14 ./client
+      - run: docker build -t cygnetops/multi-nginx-10-14 ./nginx
+      - run: docker build -t cygnetops/multi-server-10-14 ./server
+      - run: docker build -t cygnetops/multi-worker-10-14 ./worker
+ 
+      - run: docker push cygnetops/multi-client-10-14
+      - run: docker push cygnetops/multi-nginx-10-14
+      - run: docker push cygnetops/multi-server-10-14
+      - run: docker push cygnetops/multi-worker-10-14
+ 
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
  
@@ -21,9 +41,10 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
           application_name: magic-card-service
-          environment_name: Magiccardservice-env-1
+          environment_name: Magiccardservice-env
           existing_bucket_name: elasticbeanstalk-us-west-1-423357185755
           region: us-west-1
           version_label: ${{ github.sha }}
           deployment_package: deploy.zip
-          use_existing_version_if_available: true
+    ports:
+     - containerPort: 3000
