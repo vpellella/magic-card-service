@@ -30,4 +30,4 @@ jobs:
           existing_bucket_name: elasticbeanstalk-us-west-1-423357185755
           region: us-west-1
           version_label: ${{ github.sha }}
-          deployment_package: magic-card-service.zip
+          deployment_package: deploy.zip
