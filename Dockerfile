@@ -5,5 +5,6 @@ RUN mvn clean install
 
 From amazoncorretto:8-alpine-jre
 WORKDIR /usr/app/magic-card/service/
-COPY --from=builder /usr/app/magic-card/target/MagicCard-0.0.1-SNAPSHOT.jar .
-CMD ["java", "-jar", "MagicCard-0.0.1-SNAPSHOT.jar"]
+COPY --from=builder /usr/app/magic-card/target/MagicCard-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","app.jar"]
