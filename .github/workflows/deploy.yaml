@@ -1,13 +1,4 @@
-apiVersion: v1
-kind: Pod
-metadata:
- name: service-pod
- labels:
-  component: web
-spec:
- containers:
-  - name: magic-card-service
-    image: stephengrider/magic-card-servicename: Deploy MultiDocker
+name: Deploy MultiDocker
 on:
   push:
     branches:
@@ -46,5 +37,4 @@ jobs:
           region: us-west-1
           version_label: ${{ github.sha }}
           deployment_package: deploy.zip
-    ports:
-     - containerPort: 3000
+          use_existing_version_if_available: true
