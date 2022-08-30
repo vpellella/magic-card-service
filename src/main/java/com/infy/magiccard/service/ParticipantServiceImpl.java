@@ -67,16 +67,42 @@ public class ParticipantServiceImpl implements ParticipantService {
 			throw new CardDrawingException(participantsUnavilable);
 
 		return participantsList.stream().map(participant -> {
+			CardDto cardDto = new CardDto();
+			cardDto.setCardId(participant.getCard().getCardId());
+			cardDto.setCardNumber(participant.getCard().getCardNumber());
+			cardDto.setPrice(participant.getCard().getPrice());
+
 			ParticipantDto participantDto = new ParticipantDto();
 			participantDto.setParticipantId(participant.getParticipantId());
 			participantDto.setName(participant.getName());
 			participantDto.setAge(participant.getAge());
 			participantDto.setContact(participant.getContact());
 			participantDto.setMailId(participant.getMailId());
+			participantDto.setCardDto(cardDto);
+			return participantDto;
+		}).collect(Collectors.toList());
+
+	}
+	
+	@Override
+	public List<ParticipantDto> getAllParticipants() {
+		List<Participant> participantsList = participantRepository.findAll();
+
+
+		return participantsList.stream().map(participant -> {
 			CardDto cardDto = new CardDto();
 			cardDto.setCardId(participant.getCard().getCardId());
 			cardDto.setCardNumber(participant.getCard().getCardNumber());
 			cardDto.setPrice(participant.getCard().getPrice());
+			
+			ParticipantDto participantDto = new ParticipantDto();
+			participantDto.setParticipantId(participant.getParticipantId());
+			participantDto.setName(participant.getName());
+			participantDto.setAge(participant.getAge());
+			participantDto.setContact(participant.getContact());
+			participantDto.setMailId(participant.getMailId());
+			participantDto.setCardDto(cardDto);
+			
 			return participantDto;
 		}).collect(Collectors.toList());
 

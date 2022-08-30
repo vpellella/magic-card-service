@@ -93,4 +93,11 @@ public class ParticipantAPI {
 		return new ResponseEntity<String>(HttpStatus.OK).ok(participantsList);
 		
 	}
+	
+	@GetMapping(path = "/participants")
+	public ResponseEntity<List<ParticipantDto>> getAllParticipants() {
+		List<ParticipantDto> participantsList = participantService.getAllParticipants();
+		return new ResponseEntity<String>(HttpStatus.OK).ok(participantsList);
+		
+	}
 }

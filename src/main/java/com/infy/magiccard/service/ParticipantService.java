@@ -9,5 +9,5 @@ public interface ParticipantService {
 
 	Integer addParticipant(ParticipantDto participantDto) throws CardDrawingException;
 	List<ParticipantDto> getListOfParticipants(Integer age) throws CardDrawingException;
-	
+	List<ParticipantDto> getAllParticipants();
 }
