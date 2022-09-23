@@ -1,0 +1,17 @@
+version: '3'
+services: 
+ magic-card-service:
+  restart: on-failure
+  image: magic-card-service:1.0
+  build:
+   context: ./
+   dockerfile: Dockerfile
+  ports:
+   - "8080:8080"
+  environment:
+   - env.deploy =prod
+   - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/magiccard?createDatabaseIfNotExist=true
+   - SPRING_DATASOURCE_USERNAME=magiccard
+   - SPRING_DATASOURCE_PASSWORD=magiccard1
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
