@@ -1,7 +1,7 @@
 FROM maven:3.8.2-amazoncorretto-8 as builder
 WORKDIR /usr/app/magic-card
 COPY . .
-RUN mvn clean install
+RUN mvn clean install -Dspring.profiles.active=local
 
 From amazoncorretto:8-alpine-jre
 WORKDIR /usr/app/magic-card/service/
